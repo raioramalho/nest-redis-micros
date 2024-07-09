@@ -1,6 +1,8 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Controller, Get, Inject, Query } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { IsNotEmpty, IsString } from 'class-validator';
+import { Cache } from 'cache-manager';
 
 export class HelloDto {
   @IsNotEmpty()
@@ -11,11 +13,17 @@ export class HelloDto {
 @Controller()
 export class AppController {
   constructor(
-    @Inject('Gateway') private client: ClientProxy,    
+    @Inject('Gateway') private readonly client: ClientProxy,
+    @Inject(CACHE_MANAGER) private readonly cache: Cache,
   ) {}
 
-  @Post()
-  getHello(@Body() body: HelloDto) {
-    return this.client.send('hello', body);
+  @Get()
+  async getCep(@Query() body: HelloDto) {
+    return this.client.send(this.getCep.name, body);
+  }
+
+  @Get('/stream')
+  async getStream() {
+    return this.client.send(this.getStream.name, {});
   }
 }

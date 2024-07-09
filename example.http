@@ -1,7 +1,7 @@
-## POST
-POST http://localhost:3000
+### POST
+GET http://localhost:3000?cep=20521100
 Content-Type: application/json
 
-{
-    "cep": "20521100"    
-}
+### GET
+GET http://localhost:3000/stream
+Content-Type: application/json

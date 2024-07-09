@@ -3,7 +3,7 @@ import { HelloDto } from './app.controller';
 
 @Injectable()
 export class AppService {
-  async getHello(payload: HelloDto) {
+  async getCep(payload: HelloDto) {
     try {
       const baseUrl = `https://cep.awesomeapi.com.br/json/${payload.cep}`;
 
